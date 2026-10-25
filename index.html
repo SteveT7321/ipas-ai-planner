@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>iPAS AI 應用規劃師題庫</title>
+<meta name="description" content="iPAS AI 應用規劃師初級、中級官方公告試題練習：章節練習、限時模擬考、錯題本、逐選項解析與主題講義。">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23c92a5b'/%3E%3Ccircle cx='16' cy='16' r='8' fill='none' stroke='%23fff' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: 劃記答案卡 — 紅色印刷格線、範圍做成帳冊式表格、考試時題目在左、答案卡在右 */
+:root {
+  --bg: #f4f4f6;
+  --surface: #ffffff;
+  --ink: #1c1e23;
+  --muted: #5f6570;
+  --line: #e3dfe4;
+  --accent: #c92a5b;
+  --accent-soft: #fbe8ee;
+  --ok: #1b7f53;
+  --ok-soft: #e4f4ec;
+  --bad: #b5470a;
+  --bad-soft: #fdeee3;
+  --warn: #8a6100;
+  --warn-soft: #fbf3dc;
+  --code-bg: #f1eff3;
+  --official: #2c5aa0;
+  --official-soft: #e6eef9;
+  --font-display: "Noto Serif TC", "Songti TC", "PMingLiU", serif;
+  --font-body: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --r: 6px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141519; --surface: #1c1d22; --ink: #ecebee; --muted: #a3a6ae; --line: #33313a;
+    --accent: #ff6b95; --accent-soft: #3a1d29; --ok: #4fcf93; --ok-soft: #15311f;
+    --bad: #ff9a5a; --bad-soft: #3a2213; --warn: #e6b74a; --warn-soft: #362b10; --code-bg: #24232a;
+    --official: #8db4ff; --official-soft: #1c2840; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141519; --surface: #1c1d22; --ink: #ecebee; --muted: #a3a6ae; --line: #33313a;
+  --accent: #ff6b95; --accent-soft: #3a1d29; --ok: #4fcf93; --ok-soft: #15311f;
+  --bad: #ff9a5a; --bad-soft: #3a2213; --warn: #e6b74a; --warn-soft: #362b10; --code-bg: #24232a;
+  --official: #8db4ff; --official-soft: #1c2840; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.65; -webkit-text-size-adjust: 100%; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--surface); }
+.wrap { max-width: 1440px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+button { font: inherit; color: inherit; cursor: pointer; }
+a { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+h1, h2, h3 { text-wrap: balance; margin: 0; }
+.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+.eyebrow { font-size: 12px; letter-spacing: .08em; color: var(--muted); }
+
+/* Header */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--surface); border-bottom: 1px solid var(--line); }
+.top-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; padding-block: 12px 8px; }
+.brand { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-right: auto; }
+.brand h1 { font-family: var(--font-display); font-size: 22px; letter-spacing: .02em; }
+.brand .tag { font-family: var(--font-mono); font-size: 12px; color: var(--accent); border: 1px solid var(--accent); border-radius: 3px; padding: 0 6px; }
+.chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip { font-size: 12px; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); white-space: nowrap; }
+.chip b { color: var(--ink); font-family: var(--font-mono); }
+.chip.cloud { color: var(--ok); border-color: var(--ok); }
+.chip.local { color: var(--warn); border-color: var(--warn); }
+.seg.lvl { align-self: center; }
+.seg.lvl button { padding: 3px 14px; font-size: 14px; }
+.tabs { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+.tab { border: 0; background: none; padding: 8px 14px 10px; border-bottom: 2px solid transparent; color: var(--muted); white-space: nowrap; font-weight: 500; }
+.tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+.tab .badge { font-family: var(--font-mono); font-size: 11px; background: var(--accent-soft); color: var(--accent); border-radius: 999px; padding: 0 6px; margin-left: 4px; }
+
+main { padding-block: 24px 64px; }
+section.view { display: grid; gap: 24px; }
+
+/* Panels */
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 20px; min-width: 0; }
+.panel h2 { font-size: 17px; margin-bottom: 4px; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+
+/* Source tags */
+.src { display: inline-block; font-size: 12px; line-height: 1.5; padding: 0 7px; border-radius: 3px; white-space: nowrap; }
+.src.off { background: var(--official-soft); color: var(--official); }
+
+/* Subject summary */
+.subj-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.subj-code { font-family: var(--font-mono); font-size: 13px; color: var(--accent); }
+.role { font-size: 12px; padding: 1px 8px; border-radius: 3px; background: var(--accent-soft); color: var(--accent); }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 14px; }
+.stat .k { font-size: 12px; color: var(--muted); }
+.stat .v { font-family: var(--font-mono); font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.stat .v small { font-size: 13px; color: var(--muted); font-weight: 400; }
+.bar { height: 8px; background: var(--line); border-radius: 999px; overflow: hidden; position: relative; }
+.bar > i { display: block; height: 100%; background: var(--official); border-radius: 999px; }
+.bar.big { height: 10px; margin-top: 14px; }
+.passline { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--ink); opacity: .5; }
+
+/* Tables */
+.tbl-wrap { overflow-x: auto; margin-top: 12px; }
+table { border-collapse: collapse; width: 100%; min-width: 760px; }
+th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 12px; color: var(--muted); font-weight: 500; letter-spacing: .04em; }
+td.topic { font-size: 13px; color: var(--muted); width: 140px; }
+td.topic .mono { color: var(--accent); }
+td.code { font-family: var(--font-mono); font-size: 13px; white-space: nowrap; }
+td .note { font-size: 12px; color: var(--muted); }
+td.prog { width: 130px; }
+td.prog .row { display: flex; justify-content: space-between; font-size: 12px; font-family: var(--font-mono); color: var(--muted); margin-bottom: 4px; }
+td.acc { font-family: var(--font-mono); width: 70px; white-space: nowrap; }
+.acc.good { color: var(--ok); } .acc.weak { color: var(--bad); }
+.btn { border: 1px solid var(--line); background: var(--surface); border-radius: var(--r); padding: 6px 14px; font-size: 14px; }
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 500; }
+.btn.primary:hover { filter: brightness(1.08); color: #fff; }
+.btn.small { padding: 3px 10px; font-size: 13px; }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+.actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+
+.weak-list { display: grid; gap: 8px; margin-top: 12px; }
+.weak-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border: 1px solid var(--line); border-radius: var(--r); flex-wrap: wrap; }
+.weak-item .mono { color: var(--accent); font-size: 13px; }
+.weak-item .name { flex: 1; min-width: 140px; }
+.empty { color: var(--muted); font-size: 14px; padding: 12px 0; }
+
+/* Question card */
+.qcard { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 20px; min-width: 0; }
+.qmeta { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; align-items: center; font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+.qmeta .mono { color: var(--accent); }
+.qtext { font-size: 17px; font-weight: 500; margin: 0 0 14px; }
+pre.code { background: var(--code-bg); border-radius: var(--r); padding: 12px 14px; overflow-x: auto; font-family: var(--font-mono); font-size: 13px; line-height: 1.55; margin: 0 0 14px; }
+.shots { display: grid; gap: 8px; margin: 0 0 14px; }
+.shots img { display: block; max-width: 100%; height: auto; border: 1px solid var(--line); border-radius: 4px; background: #fff; }
+details.ctx { border: 1px dashed var(--official); border-radius: var(--r); padding: 10px 14px; margin: 0 0 14px; background: var(--official-soft); }
+details.ctx summary { cursor: pointer; color: var(--official); font-size: 13px; font-weight: 500; }
+details.ctx p { margin: 8px 0 0; font-size: 14px; }
+details.ctx .shots { margin: 8px 0 0; }
+.opts { display: grid; gap: 8px; }
+.opt { display: flex; gap: 12px; align-items: flex-start; text-align: left; width: 100%; border: 1px solid var(--line); background: var(--surface); border-radius: var(--r); padding: 10px 12px; }
+.opt:hover:not(:disabled) { border-color: var(--accent); }
+.opt:disabled { cursor: default; }
+.bubble { flex: none; width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid var(--accent); color: var(--accent); display: grid; place-items: center; font-family: var(--font-mono); font-size: 13px; font-weight: 600; margin-top: 1px; }
+.opt .txt { white-space: pre-wrap; min-width: 0; overflow-wrap: anywhere; }
+.opt .txt.see { color: var(--muted); font-style: italic; }
+.opt.picked .bubble { background: var(--accent); color: #fff; }
+.opt.right { border-color: var(--ok); background: var(--ok-soft); }
+.opt.right .bubble { background: var(--ok); border-color: var(--ok); color: #fff; }
+.opt.wrong { border-color: var(--bad); background: var(--bad-soft); }
+.opt.wrong .bubble { background: var(--bad); border-color: var(--bad); color: #fff; }
+.explain { margin-top: 14px; padding: 12px 14px; border-left: 3px solid var(--ok); background: var(--ok-soft); border-radius: 0 var(--r) var(--r) 0; font-size: 14px; }
+.explain.bad { border-left-color: var(--bad); background: var(--bad-soft); }
+.explain b { display: block; margin-bottom: 2px; }
+.explain .e, .ans-line.e { white-space: pre-line; }
+details.lec { border: 1px solid var(--official); border-radius: var(--r); margin-top: 10px; background: var(--surface); min-width: 0; }
+details.lec > summary { cursor: pointer; padding: 10px 14px; font-weight: 500; color: var(--official); font-size: 14px; }
+details.lec > summary .muted { font-weight: 400; font-size: 12px; margin-left: 4px; }
+.md { padding: 0 16px 14px; font-size: 14.5px; line-height: 1.8; overflow-wrap: anywhere; }
+.md h4 { font-size: 15px; margin: 18px 0 6px; padding-left: 8px; border-left: 3px solid var(--accent); }
+.md h4:first-child { margin-top: 4px; }
+.md p { margin: 8px 0; }
+.md ul, .md ol { margin: 6px 0; padding-left: 22px; }
+.md li { margin: 3px 0; }
+.md code { font-family: var(--font-mono); font-size: .9em; background: var(--code-bg); padding: 1px 5px; border-radius: 3px; }
+.md .tbl-wrap { margin-top: 8px; }
+.md table.mdt { min-width: 0; font-size: 13.5px; }
+.md table.mdt th, .md table.mdt td { padding: 6px 8px; }
+.md pre.code { margin: 8px 0; }
+.doubt { margin-top: 8px; padding: 8px 12px; background: var(--warn-soft); color: var(--warn); border-radius: var(--r); font-size: 13px; }
+.qnav { display: flex; justify-content: space-between; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+
+/* Setup */
+.setup { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; }
+.field { display: grid; gap: 4px; min-width: 0; }
+.field label, .field .lbl { font-size: 12px; color: var(--muted); }
+select { font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 7px 10px; max-width: 100%; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+.seg button { border: 0; background: none; padding: 7px 12px; font-size: 14px; color: var(--muted); }
+.seg button[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent); font-weight: 500; }
+
+/* Exam */
+.exam-group { display: grid; gap: 10px; }
+.exam-group h3 { font-size: 14px; color: var(--muted); font-weight: 500; }
+.exam-choose { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+.exam-opt { text-align: left; border: 1.5px solid var(--line); background: var(--surface); border-radius: var(--r); padding: 14px 16px; display: grid; gap: 4px; }
+.exam-opt[aria-pressed="true"] { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.exam-opt h4 { margin: 0; font-size: 15px; }
+.exam-opt .sub { font-size: 13px; color: var(--muted); }
+.rules { display: flex; gap: 16px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+.rules b { color: var(--ink); font-family: var(--font-mono); }
+.exam-bar { position: sticky; top: calc(env(safe-area-inset-top, 0px) + var(--hdr, 96px)); z-index: 4; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 10px 14px; }
+.timer { font-family: var(--font-mono); font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.timer.low { color: var(--bad); }
+.exam-bar .spacer { flex: 1; }
+.exam-layout { display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: 16px; align-items: start; }
+.sheet { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px; position: sticky; top: calc(env(safe-area-inset-top, 0px) + var(--hdr, 96px) + 70px); }
+.sheet h3 { font-size: 13px; color: var(--accent); font-weight: 500; letter-spacing: .06em; margin-bottom: 10px; }
+.cells { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+.cell { aspect-ratio: 1; max-width: 100%; border: 1px solid var(--accent); border-radius: 4px; background: none; font-family: var(--font-mono); font-size: 12px; color: var(--accent); position: relative; padding: 0; }
+.cell.done { background: var(--accent); color: #fff; }
+.cell.cur { outline: 2px solid var(--ink); outline-offset: 1px; }
+.cell.flag::after { content: ""; position: absolute; top: 2px; right: 2px; width: 6px; height: 6px; border-radius: 50%; background: var(--warn); }
+.legend { display: flex; gap: 12px; flex-wrap: wrap; font-size: 12px; color: var(--muted); margin-top: 10px; }
+.flagbtn[aria-pressed="true"] { border-color: var(--warn); color: var(--warn); }
+.confirm { border: 1px solid var(--bad); background: var(--bad-soft); border-radius: var(--r); padding: 12px 14px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.confirm p { margin: 0; flex: 1; min-width: 200px; }
+
+/* Result */
+.result-head { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+.score { font-family: var(--font-mono); font-size: 56px; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; }
+.score small { font-size: 18px; color: var(--muted); }
+.pill { display: inline-block; padding: 3px 12px; border-radius: 999px; font-weight: 700; font-size: 14px; }
+.pill.pass { background: var(--ok-soft); color: var(--ok); }
+.pill.fail { background: var(--bad-soft); color: var(--bad); }
+.wrong-list { display: grid; gap: 12px; }
+details.wq { border: 1px solid var(--line); border-radius: var(--r); padding: 10px 14px; background: var(--surface); min-width: 0; }
+details.wq summary { cursor: pointer; }
+details.wq summary .mono { color: var(--accent); font-size: 12px; margin-right: 8px; }
+details.wq .shots { margin-top: 10px; }
+.ans-line { font-size: 14px; margin: 8px 0 0; }
+.ans-line .r { color: var(--ok); font-weight: 500; }
+.ans-line .w { color: var(--bad); font-weight: 500; }
+
+.hist td { font-family: var(--font-mono); font-size: 13px; }
+.hist table, .papers table { min-width: 520px; }
+.foot { font-size: 12px; color: var(--muted); line-height: 1.7; }
+.links { display: grid; gap: 8px; margin: 12px 0 0; padding: 0; list-style: none; }
+.links li { display: flex; gap: 10px; flex-wrap: wrap; align-items: baseline; }
+
+/* 左題右解：填滿一個視窗，左右各自捲動 */
+main.tight { padding-block: 12px; }
+section.view.fill { display: flex; flex-direction: column; gap: 12px; height: calc(100dvh - var(--hdr, 96px) - 24px); min-height: 520px; }
+section.view.fill > .split, section.view.fill > .exam-layout { flex: 1; min-height: 0; }
+.toolbar { display: flex; align-items: center; gap: 8px 12px; flex-wrap: wrap; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 8px 14px; }
+.toolbar h2 { font-size: 16px; }
+.toolbar .spacer { flex: 1; }
+.toolbar .score { font-size: 30px; }
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); gap: 12px; }
+.split.fixed { height: min(78vh, 860px); }
+.split > .pane { min-width: 0; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+.split > .pane > .qcard { min-height: 100%; }
+.pane.right { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 16px; scroll-margin-top: calc(var(--hdr, 96px) + 12px); }
+.wait { color: var(--muted); font-size: 14px; display: grid; place-content: center; text-align: center; height: 100%; gap: 4px; }
+.wait b { color: var(--ink); font-size: 15px; }
+.wait p { margin: 0; }
+.verdict { font-weight: 700; font-size: 15px; padding: 6px 12px; border-radius: var(--r); background: var(--official-soft); color: var(--official); }
+.verdict.ok { background: var(--ok-soft); color: var(--ok); }
+.verdict.bad { background: var(--bad-soft); color: var(--bad); }
+.notes { display: grid; gap: 6px; margin-top: 10px; }
+.note { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; line-height: 1.65; padding: 6px 8px; border-radius: var(--r); white-space: pre-line; }
+.note .bubble { width: 22px; height: 22px; font-size: 12px; }
+.note.right { background: var(--ok-soft); }
+.note.right .bubble { background: var(--ok); border-color: var(--ok); color: #fff; }
+.note.wrong .bubble { background: var(--bad); border-color: var(--bad); color: #fff; }
+.note .nl { font-weight: 600; }
+.lec-topic { margin-top: 14px; border-top: 1px solid var(--line); padding-top: 12px; }
+.lec-head { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; font-size: 14px; }
+.lec-head .lbl { font-size: 12px; color: var(--official); border: 1px solid var(--official); border-radius: 3px; padding: 0 6px; }
+.lec-head .muted { font-size: 12px; }
+.sec-tabs { display: flex; flex-wrap: wrap; gap: 4px; margin: 8px 0 2px; }
+.sec-tabs button { border: 1px solid var(--line); background: none; border-radius: 999px; padding: 2px 10px; font-size: 13px; color: var(--muted); }
+.sec-tabs button[aria-selected="true"] { background: var(--official-soft); border-color: var(--official); color: var(--official); font-weight: 500; }
+.md.sec { padding: 4px 2px 0; }
+.browse-bar { display: flex; gap: 8px 12px; align-items: center; flex-wrap: wrap; }
+.strip { display: flex; flex-wrap: wrap; gap: 4px; flex: 1; min-width: 0; }
+.strip .cell { width: 30px; height: 30px; aspect-ratio: auto; }
+.cell.ok { border-color: var(--ok); color: var(--ok); background: var(--ok-soft); }
+.cell.ng { border-color: var(--bad); color: var(--bad); background: var(--bad-soft); }
+.chrow { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip.good b { color: var(--ok); } .chip.weak b { color: var(--bad); }
+.grid3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.grid2.wide { grid-template-columns: repeat(auto-fit, minmax(460px, 1fr)); }
+table.compact { min-width: 0; }
+table.compact th, table.compact td { padding: 6px 8px; }
+table.compact td.prog { width: 110px; }
+tr.grp td { background: var(--code-bg); font-size: 12px; color: var(--muted); padding: 4px 8px; }
+tr.grp .mono { color: var(--accent); }
+.fill .exam-layout { grid-template-rows: minmax(0, 1fr); align-items: stretch; }
+.fill .exam-layout > .pane { overflow-y: auto; min-height: 0; }
+.fill .sheet { position: static; }
+@media (max-width: 900px) {
+  section.view.fill { height: auto; min-height: 0; }
+  .split, .split.fixed { grid-template-columns: 1fr; height: auto; }
+  .split > .pane, .fill .exam-layout > .pane { overflow: visible; }
+  .grid2.wide { grid-template-columns: 1fr; }
+}
+@media (max-width: 760px) {
+  .exam-layout { grid-template-columns: 1fr; }
+  .sheet { position: static; order: 2; }
+  .cells { grid-template-columns: repeat(10, 1fr); }
+  .brand h1 { font-size: 18px; }
+  .score { font-size: 44px; }
+  .stats .v { font-size: 19px; }
+  #subtitle { display: none; }
+  .top-row { padding-block: 8px 2px; gap: 6px 12px; }
+  .chip { font-size: 11px; padding: 2px 8px; }
+  .tab { padding: 8px 7px 9px; font-size: 14px; }
+  .papers table { min-width: 0; font-size: 13px; }
+  .papers th, .papers td { white-space: nowrap; padding: 8px 5px; }
+  .papers th:nth-child(3), .papers td:nth-child(3) { display: none; }
+  main { padding-block: 14px 40px; }
+  .panel, .qcard { padding: 14px; }
+  .qtext { font-size: 16px; }
+  .pane.right { padding: 12px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .bar > i { transition: width .4s ease; }
+}
+</style>
+</head>
+<body>
+
+<header class="top" id="hdr">
+  <div class="wrap">
+    <div class="top-row">
+      <div class="brand">
+        <h1>iPAS AI 應用規劃師</h1>
+        <div class="seg lvl" role="group" aria-label="等級"><button data-level="初級" aria-pressed="false">初級</button><button data-level="中級" aria-pressed="false">中級</button></div>
+        <span class="muted" style="font-size:13px" id="subtitle"></span>
+      </div>
+      <div class="chips">
+        <span class="chip" id="countdown"></span>
+        <span class="chip" id="sync">連線中…</span>
+      </div>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="功能">
+      <button class="tab" role="tab" id="tab-scope" data-view="scope">範圍與進度</button>
+      <button class="tab" role="tab" id="tab-practice" data-view="practice">章節練習</button>
+      <button class="tab" role="tab" id="tab-exam" data-view="exam">模擬考</button>
+      <button class="tab" role="tab" id="tab-review" data-view="review">錯題本<span class="badge" id="review-badge">0</span></button>
+      <button class="tab" role="tab" id="tab-resources" data-view="resources">官方資源</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" id="main">
+  <section class="view" id="view-scope"></section>
+  <section class="view" id="view-practice" hidden></section>
+  <section class="view" id="view-exam" hidden></section>
+  <section class="view" id="view-review" hidden></section>
+  <section class="view" id="view-resources" hidden></section>
+</main>
+<footer class="wrap foot" style="padding-bottom:32px">題目來源：經濟部 iPAS AI 應用規劃師能力鑑定<a href="https://ipd.nat.gov.tw/ipas/certification/AIAP/learning-resources" target="_blank" rel="noopener">官方公告試題</a>，答案依官方公告。章節分類、逐選項解析與主題講義是整理者補充，不是官方內容。</footer>
+
+<script src="scope.js"></script>
+<script src="official.js"></script>
+<script>
+(function () {
+  const SCOPE_ALL = window.SCOPE || [];
+  const QB_ALL = window.OQB || [];
+  const TOPICS = window.TOPICS || {};
+  const PAPERS_ALL = window.PAPERS || [];
+  const OPASS = window.OPASS || {};
+  const BYID = Object.fromEntries(QB_ALL.map(q => [q.id, q]));
+  const PBYID = Object.fromEntries(PAPERS_ALL.map(p => [p.id, p]));
+  // 目前等級的範圍、卷、題目；切換等級時由 setLevel 重設
+  let SCOPE = SCOPE_ALL, PAPERS = PAPERS_ALL, ALL = QB_ALL, OFF = QB_ALL;
+  const CH = {};
+  SCOPE_ALL.forEach(s => s.topics.forEach(t => t.items.forEach(i => { CH[i.ch] = Object.assign({}, i, { subj: s.subj, topic: t.code, topicName: t.name }); })));
+  const chName = ch => CH[ch] ? CH[ch].name : '章節待分類';
+  const subjName = subj => (SCOPE_ALL.find(s => s.subj === subj) || {}).name || subj;
+  const subjOf = q => q.ch.slice(0, 3);
+  const srcTag = q => '<span class="src off">官方 ' + q.src + ' 第 ' + q.no + ' 題</span>';
+  let EXAM_N = 50, EXAM_MIN = 90, PASS = 70;
+  const LS_STATE = 'ipas-l2-progress-v1', LS_EXAM = 'ipas-l2-exam-v2', LS_VIEW = 'ipas-l2-view', LS_LEVEL = 'ipas-level';
+  const VIEWS = ['scope', 'practice', 'exam', 'review', 'resources'];
+  const L = ['A', 'B', 'C', 'D'];
+  const BASE = 'https://www.ipas.org.tw/api/proxy/uploads/certification_resource/bf93f438f7be48d295c1b40a34d79f3d/';
+  const COMMON_DOCS = [
+    { name: '評鑑內容範圍參考（115.06 更新）', url: 'https://www.ipas.org.tw/api/proxy/uploads/certification_attachment/8039a24c849c4fb4a6dd7f942576d4f8/AI應用規劃師能力鑑定_評鑑內容範圍參考_11506_20260602161501.pdf' },
+    { name: '115 年度簡章（初、中級）', url: 'https://www.ipas.org.tw/api/proxy/uploads/certification/AIAP/115年度AI應用規劃師能力鑑定簡章(初、中級)_0410_20260410115646_20260901165208.pdf' },
+    { name: 'iPAS 學習資源頁（新公告的試題會放這裡）', url: 'https://ipd.nat.gov.tw/ipas/certification/AIAP/learning-resources' },
+    { name: 'iPAS 考試資訊（報名、日期）', url: 'https://ipd.nat.gov.tw/ipas/certification/AIAP/exam-info' }
+  ];
+  // 規則依 115 年度簡章；dates 是官方考試日（推估的會標明），倒數取第一個還沒到的
+  const LEVELS = {
+    '初級': { n: 50, min: 75, pass: 70, sub: 'L11 人工智慧基礎概論＋L12 生成式 AI 應用與規劃',
+      rule: '同時考兩科：平均 ≥70 且每科 ≥60；分開考：每科 ≥70',
+      dates: [['2026-11-07', '115 年第四次初級']],
+      docs: [
+        { name: '初級學習指引　科目 1：人工智慧基礎概論', url: BASE + 'AI應用規劃師(初級)-學習指引-科目1_人工智慧基礎概論1141203_20251222172144.pdf' },
+        { name: '初級學習指引　科目 2：生成式 AI 應用與規劃', url: BASE + 'AI應用規劃師(初級)-學習指引-科目2_生成式AI應用與規劃114123_20251222172159.pdf' },
+        { name: '初級學習指引勘誤表（114.04）', url: BASE + 'AI應用規劃師(初級)學習指引勘誤表11404_20251222101819.pdf' }] },
+    '中級': { n: 50, min: 90, pass: 70, sub: 'L21 必考＋L23 機器學習',
+      rule: '科目 1 與科目 3 各自 ≥70（機器學習證書）',
+      dates: [['2026-11-14', '115 年第二次中級'], ['2027-05-22', '116 年第一次中級（推估）']],
+      docs: [
+        { name: '中級學習指引　科目 1：人工智慧技術應用規劃', url: BASE + 'AI應用規劃師(中級)-學習指引-科目1人工智慧技術應用規劃_20251222101833.pdf' },
+        { name: '中級學習指引　科目 3：機器學習技術與應用', url: BASE + 'AI應用規劃師(中級)-學習指引-科目3機器學習技術與應用_20251222101907.pdf' },
+        { name: '中級學習指引勘誤表（115.04.10）', url: BASE + 'AI應用規劃師(中級)_學習指引勘誤表_1150410_20260410150331.pdf' }] }
+  };
+  let level = '初級', LV = LEVELS[level];
+  const inLevel = subj => SCOPE.some(s => s.subj === subj);
+
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const lsGet = k => { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : null; } catch (e) { return null; } };
+  const lsSet = (k, v) => { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
+  const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  const pct = (a, b) => b ? Math.round(a / b * 100) : 0;
+  const $ = id => document.getElementById(id);
+
+  // ───── state & persistence ─────
+  const blank = () => ({ v: 1, q: {}, mocks: [], updatedAt: 0 });
+  let state = lsGet(LS_STATE) || blank();
+  let cloudRef = null, writing = false, pending = false, saveTimer = null;
+
+  function save() {
+    state.updatedAt = Date.now();
+    lsSet(LS_STATE, state);
+    if (!cloudRef) return;
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(pushCloud, 1200);
+  }
+  async function pushCloud() {
+    if (!cloudRef) return;
+    if (writing) { pending = true; return; }
+    writing = true;
+    try { await cloudRef.set(JSON.parse(JSON.stringify(state))); setSync('cloud'); }
+    catch (e) { setSync('error', e && e.code); }
+    writing = false;
+    if (pending) { pending = false; pushCloud(); }
+  }
+  function merge(a, b) {
+    const out = blank();
+    const ids = new Set([...Object.keys(a.q || {}), ...Object.keys(b.q || {})]);
+    ids.forEach(id => {
+      const ok = v => v && typeof v.c === 'number' && typeof v.w === 'number';
+      const x = ok((a.q || {})[id]) ? a.q[id] : null, y = ok((b.q || {})[id]) ? b.q[id] : null;
+      if (!x && !y) return;
+      if (!x) out.q[id] = y; else if (!y) out.q[id] = x;
+      else out.q[id] = (x.c + x.w) >= (y.c + y.w) ? x : y;
+    });
+    const seen = new Set();
+    [...(a.mocks || []), ...(b.mocks || [])].forEach(m => { if (!seen.has(m.t)) { seen.add(m.t); out.mocks.push(m); } });
+    out.mocks.sort((m, n) => m.t - n.t);
+    out.updatedAt = Math.max(a.updatedAt || 0, b.updatedAt || 0);
+    return out;
+  }
+  function setSync(mode, code) {
+    const el = $('sync');
+    el.className = 'chip ' + (mode === 'cloud' ? 'cloud' : 'local');
+    el.textContent = mode === 'cloud' ? '進度已雲端同步' : mode === 'error' ? '雲端同步失敗，進度先存本機' : '進度只存在這台裝置';
+    if (mode === 'error' && code) el.title = code;
+  }
+  async function initCloud() {
+    try {
+      if (!window.claude || !window.claude.use) { setSync('local'); return; }
+      const [user, db] = await Promise.all([window.claude.use('user'), window.claude.use('db')]);
+      if (!user || !db) { setSync('local'); return; }
+      const uid = await user.id();
+      if (!uid) { setSync('local'); return; }
+      const ref = db.doc('progress/' + uid + '/state/main');
+      const snap = await ref.get();
+      if (snap.exists) state = merge(snap.data(), state);
+      cloudRef = ref;
+      lsSet(LS_STATE, state);
+      setSync('cloud');
+      if (!snap.exists && Object.keys(state.q).length) pushCloud();
+      render();
+    } catch (e) { setSync('error', e && e.code); }
+  }
+
+  function record(id, correct) {
+    const s = state.q[id] || { c: 0, w: 0, fix: 0 };
+    if (s.first == null && s.c + s.w === 0) s.first = correct ? 1 : 0;
+    if (correct) { s.c++; if (s.w > 0) s.fix = (s.fix || 0) + 1; }
+    else { s.w++; s.fix = 0; }
+    s.last = correct ? 1 : 0;
+    state.q[id] = s;
+  }
+  const inBook = id => { const s = state.q[id]; return s && s.w > 0 && (s.fix || 0) < 2; };
+  const tries = id => { const s = state.q[id]; return s ? s.c + s.w : 0; };
+  // 首次正確率：每題只看第一次作答，避免重做答對灌高分數
+  function stats(qs) {
+    let done = 0, fOk = 0, fN = 0;
+    qs.forEach(q => { const s = state.q[q.id]; if (s) { done++; if (s.first != null) { fN++; fOk += s.first; } } });
+    return { total: qs.length, done, first: fN ? pct(fOk, fN) : null, fN };
+  }
+  const qsOf = (pred) => ALL.filter(pred);
+  function bestPaper(pid) { const ms = state.mocks.filter(m => m.paper === pid); return ms.length ? Math.max(...ms.map(m => m.score)) : null; }
+
+  // ───── views ─────
+  let view = 'scope';
+  function show(v) {
+    view = v;
+    VIEWS.forEach(k => {
+      $('view-' + k).hidden = k !== v;
+      $('tab-' + k).setAttribute('aria-selected', k === v ? 'true' : 'false');
+    });
+    lsSet(LS_VIEW, v);
+    render();
+    window.scrollTo(0, 0);
+  }
+  document.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => show(b.dataset.view)));
+
+  let fillView = false, keyAct = null;
+  function render() {
+    $('review-badge').textContent = ALL.filter(q => inBook(q.id)).length;
+    fillView = false; keyAct = null;
+    ({ scope: renderScope, practice: renderPractice, exam: renderExam, review: renderReview, resources: renderResources })[view]();
+    $('view-' + view).classList.toggle('fill', fillView);
+    $('main').classList.toggle('tight', fillView);
+  }
+  // 快捷鍵：1–4 或 A–D 作答，Enter／→ 下一題，← 上一題
+  document.addEventListener('keydown', e => {
+    if (!keyAct || e.ctrlKey || e.metaKey || e.altKey || /^(INPUT|SELECT|TEXTAREA)$/.test((e.target && e.target.tagName) || '')) return;
+    const c = (e.key || '').toLowerCase();
+    const k = c.length === 1 ? Math.max('1234'.indexOf(c), 'abcd'.indexOf(c)) : -1;
+    if (k >= 0 && keyAct.pick) keyAct.pick(k);
+    else if ((e.key === 'Enter' || e.key === 'ArrowRight') && keyAct.next) keyAct.next();
+    else if (e.key === 'ArrowLeft' && keyAct.prev) keyAct.prev();
+    else return;
+    e.preventDefault();
+  });
+
+  function renderCountdown() {
+    const now = new Date();
+    const next = LV.dates.map(([d, name]) => [new Date(d + 'T09:00:00+08:00'), name]).find(([d]) => d > now);
+    $('countdown').innerHTML = next
+      ? '距 ' + next[1] + '（' + (next[0].getMonth() + 1) + '/' + next[0].getDate() + '）<b>' + Math.ceil((next[0] - now) / 86400000) + '</b> 天'
+      : '下一次' + level + '考期請見官方簡章';
+    const nt = Object.values(TOPICS).filter(t => inLevel(t.subj)).length;
+    $('subtitle').textContent = LV.sub + ' · 官方真題 ' + OFF.length + ' 題' + (nt ? ' · 主題講義 ' + nt + ' 份' : '');
+  }
+  function setLevel(lv) {
+    level = LEVELS[lv] ? lv : '初級';
+    LV = LEVELS[level];
+    SCOPE = SCOPE_ALL.filter(s => s.level === level);
+    PAPERS = PAPERS_ALL.filter(p => inLevel(p.subj));
+    ALL = OFF = QB_ALL.filter(q => inLevel(subjOf(q)));
+    EXAM_N = LV.n; EXAM_MIN = LV.min; PASS = LV.pass;
+    Object.assign(practiceCfg, { ch: 'ALL' + SCOPE[0].subj.slice(1), mode: 'all' });
+    examPick = PAPERS.length ? { kind: 'paper', paper: PAPERS[PAPERS.length - 1].id } : { kind: 'mix', subj: SCOPE[0].subj };
+    if (session && session.ids.some(id => !inLevel(subjOf(BYID[id])))) session = null;
+    lsSet(LS_LEVEL, level);
+    document.querySelectorAll('[data-level]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.level === level)));
+    document.title = 'iPAS AI 應用規劃師' + level + '題庫';
+  }
+  document.querySelectorAll('[data-level]').forEach(b => b.addEventListener('click', () => {
+    if (b.dataset.level === level) return;
+    setLevel(b.dataset.level);
+    renderCountdown();
+    measureHeader();
+    render();
+    window.scrollTo(0, 0);
+  }));
+
+  // ───── 範圍與進度 ─────
+  function renderScope() {
+    const el = $('view-scope');
+    const cards = SCOPE.map(s => {
+      const so = stats(qsOf(q => subjOf(q) === s.subj));
+      const papers = PAPERS.filter(p => p.subj === s.subj);
+      const paperLine = papers.map(p => { const b = bestPaper(p.id); return p.src + '：' + (b == null ? '未考' : '<b style="color:' + (b >= PASS ? 'var(--ok)' : 'var(--bad)') + '">' + b + '</b>'); }).join('　');
+      return '<div class="panel">' +
+        '<div class="subj-head"><div><div class="subj-code">' + s.subj + '</div><h2>' + esc(s.name) + '</h2></div><span class="role">' + s.role + '</span></div>' +
+        '<div class="stats">' +
+          '<div class="stat"><div class="k">官方題已作答</div><div class="v">' + so.done + '<small> / ' + so.total + '</small></div></div>' +
+          '<div class="stat"><div class="k">官方題首次正確率</div><div class="v">' + (so.first == null ? '—' : so.first + '<small>%</small>') + '</div></div>' +
+          '<div class="stat"><div class="k">真卷最佳</div><div class="v">' + (papers.some(p => bestPaper(p.id) != null) ? Math.max(...papers.map(p => bestPaper(p.id) ?? 0)) : '—') + '</div></div>' +
+        '</div>' +
+        '<div class="bar big" title="官方題覆蓋率"><i style="width:' + pct(so.done, so.total) + '%"></i></div>' +
+        '<div class="muted" style="font-size:13px;margin-top:10px">真卷成績　' + paperLine + '</div>' +
+        '<div class="actions" style="margin-top:12px"><button class="btn small" data-go-exam="' + s.subj + '">去考 ' + s.subj + ' 真卷</button><span class="muted" style="font-size:12px">' + esc(LV.rule) + '</span></div>' +
+      '</div>';
+    }).join('');
+
+    const chRows = Object.keys(CH).filter(ch => inLevel(CH[ch].subj)).map(ch => ({ ch, ...stats(qsOf(q => q.ch === ch)) }));
+    const weak = chRows.filter(x => x.fN >= 3).sort((a, b) => a.first - b.first).slice(0, 3).filter(x => x.first < 80);
+    const weakHtml = weak.length
+      ? weak.map(x => '<div class="weak-item"><span class="mono">' + x.ch + '</span><span class="name">' + esc(chName(x.ch)) + '</span><span class="acc weak mono">' + x.first + '%</span><button class="btn small" data-practice="' + x.ch + '">練習</button></div>').join('')
+      : '<div class="empty">' + (chRows.every(x => x.done === 0) ? '還沒有作答紀錄。建議先限時考一份最新的官方真卷，再回來看哪些章節最弱。' : '目前沒有首次正確率低於 80% 的章節（至少要有 3 題首次作答才列入）。') + '</div>';
+
+    const tables = SCOPE.map(s => {
+      const rows = s.topics.map(t => '<tr class="grp"><td colspan="5"><span class="mono">' + t.code + '</span>　' + esc(t.name) + '</td></tr>' + t.items.map(it => {
+        const all = stats(qsOf(q => q.ch === it.ch));
+        const cls = all.first == null ? '' : all.first >= 80 ? 'good' : all.first < 70 ? 'weak' : '';
+        return '<tr' + (it.note ? ' title="' + esc(it.note) + '"' : '') + '>' +
+          '<td class="code">' + it.ch + '</td>' +
+          '<td>' + esc(it.name) + '</td>' +
+          '<td class="prog"><div class="row"><span>' + all.done + ' / ' + all.total + '</span></div><div class="bar"><i style="width:' + pct(all.done, all.total) + '%"></i></div></td>' +
+          '<td class="acc ' + cls + '">' + (all.first == null ? '—' : all.first + '%') + '</td>' +
+          '<td><button class="btn small" data-practice="' + it.ch + '"' + (all.total ? '' : ' disabled') + '>練習</button></td>' +
+        '</tr>';
+      }).join('')).join('');
+      const unsorted = qsOf(q => subjOf(q) === s.subj && !CH[q.ch]).length;
+      return '<div class="panel"><div class="subj-head"><h2><span class="subj-code">' + s.subj + '</span> ' + esc(s.name) + '</h2><span class="muted" style="font-size:13px">' + s.topics.reduce((n, t) => n + t.items.length, 0) + ' 個評鑑內容</span></div>' +
+        (unsorted ? '<p class="muted" style="font-size:13px;margin:6px 0 0">另有 ' + unsorted + ' 題還沒歸到章節，可用「章節練習」的「' + s.subj + ' 全部章節」作答。</p>' : '') +
+        '<div class="tbl-wrap"><table class="compact"><thead><tr><th>代碼</th><th>評鑑內容</th><th>已作答</th><th>首答正確</th><th></th></tr></thead><tbody>' + rows + '</tbody></table></div></div>';
+    }).join('');
+
+    const hist = state.mocks.filter(m => inLevel(m.subj)).reverse().slice(0, 15);
+    const histHtml = hist.length
+      ? '<div class="tbl-wrap hist"><table><thead><tr><th>日期</th><th>考卷</th><th>分數</th><th>結果</th><th>用時</th></tr></thead><tbody>' +
+        hist.map(m => '<tr><td>' + new Date(m.t).toLocaleDateString('zh-TW') + '</td><td>' + (m.paper ? '官方 ' + m.paper.replace('_', ' ') : m.subj + ' 隨機抽題') + '</td><td>' + m.score + '</td><td><span class="pill ' + (m.score >= PASS ? 'pass' : 'fail') + '">' + (m.score >= PASS ? '及格' : '未及格') + '</span></td><td>' + Math.round(m.sec / 60) + ' 分</td></tr>').join('') +
+        '</tbody></table></div>'
+      : '';
+
+    el.innerHTML =
+      '<div class="grid3">' + cards + '<div class="panel"><h2>建議先練</h2><div class="muted" style="font-size:13px">首次正確率最低的章節</div><div class="weak-list">' + weakHtml + '</div></div></div>' +
+      '<div class="grid2 wide">' + tables + '</div>' +
+      (histHtml ? '<div class="panel"><h2>模擬考紀錄</h2>' + histHtml + '</div>' : '') +
+      '<p class="foot">範圍依據《評鑑內容範圍參考》115.06 版。首次正確率只計每題第一次作答。' + (OFF.some(q => !q.e) ? '目前有 ' + OFF.filter(q => !q.e).length + ' 題的逐選項解析還在製作中，答案已依官方公告。' : '') + '116 年考試日期尚未公告。</p>';
+
+    el.querySelectorAll('[data-practice]').forEach(b => b.addEventListener('click', () => { Object.assign(practiceCfg, { ch: b.dataset.practice, mode: 'all' }); startPractice(); }));
+    el.querySelectorAll('[data-go-exam]').forEach(b => b.addEventListener('click', () => {
+      const latest = PAPERS.filter(p => p.subj === b.dataset.goExam).slice(-1)[0];
+      examPick = latest ? { kind: 'paper', paper: latest.id } : { kind: 'mix', subj: b.dataset.goExam };
+      show('exam');
+    }));
+  }
+
+  // ───── 題目卡 ─────
+  const shotsHtml = files => '<div class="shots">' + files.map(f => '<img src="img/' + encodeURIComponent(f) + '" alt="原卷截圖" loading="lazy">').join('') + '</div>';
+  function ctxHtml(q) {
+    const p = q.ctx && OPASS[q.ctx];
+    if (!p) return '';
+    return '<details class="ctx" open><summary>題組共用說明</summary>' + (p.shots && p.shots.length ? shotsHtml(p.shots) : '<p>' + esc(p.text) + '</p>') + '</details>';
+  }
+  function bodyHtml(q) {
+    if (q.shots && q.shots.length) return shotsHtml(q.shots);
+    return '<p class="qtext">' + esc(q.q) + '</p>' + (q.code ? '<pre class="code">' + esc(q.code) + '</pre>' : '');
+  }
+  const optText = t => t ? '<span class="txt' + (/^\[/.test(t) ? ' mono' : '') + '">' + esc(t) + '</span>' : '<span class="txt see">選項內容見上方原卷截圖</span>';
+  // 講義用的精簡 Markdown：#### 小標、- 條列、1. 編號、| 表格、``` 程式區塊、**粗體**、`程式碼`
+  function md(src) {
+    const inline = t => esc(t).replace(/`([^`]+)`/g, '<code>$1</code>').replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>');
+    const BLOCK = /^(```|#{2,4} |\s*[-*] |\s*\d+\. |\|)/;
+    const lines = String(src).split('\n'), out = [];
+    const list = (re, tag) => { const buf = []; while (i < lines.length && re.test(lines[i])) buf.push('<li>' + inline(lines[i++].replace(re, '')) + '</li>'); out.push('<' + tag + '>' + buf.join('') + '</' + tag + '>'); };
+    let i = 0;
+    while (i < lines.length) {
+      const ln = lines[i];
+      if (/^```/.test(ln)) {
+        const buf = []; i++;
+        while (i < lines.length && !/^```/.test(lines[i])) buf.push(lines[i++]);
+        i++; out.push('<pre class="code">' + esc(buf.join('\n')) + '</pre>');
+      } else if (/^#{2,4} /.test(ln)) { out.push('<h4>' + inline(ln.replace(/^#+ /, '')) + '</h4>'); i++; }
+      else if (/^\s*[-*] /.test(ln)) list(/^\s*[-*] /, 'ul');
+      else if (/^\s*\d+\. /.test(ln)) list(/^\s*\d+\. /, 'ol');
+      else if (/^\|/.test(ln)) {
+        const rows = [];
+        while (i < lines.length && /^\|/.test(lines[i])) rows.push(lines[i++]);
+        const cells = r => r.trim().replace(/^\||\|$/g, '').split('|').map(c => c.trim());
+        const body = rows.filter(r => !/^\|[\s:|-]+$/.test(r.trim()));
+        out.push('<div class="tbl-wrap"><table class="mdt"><thead><tr>' + cells(body[0]).map(c => '<th>' + inline(c) + '</th>').join('') + '</tr></thead><tbody>' +
+          body.slice(1).map(r => '<tr>' + cells(r).map(c => '<td>' + inline(c) + '</td>').join('') + '</tr>').join('') + '</tbody></table></div>');
+      } else if (!ln.trim()) i++;
+      else {
+        const buf = [];
+        while (i < lines.length && lines[i].trim() && !BLOCK.test(lines[i])) buf.push(lines[i++]);
+        out.push('<p>' + inline(buf.join(' ')) + '</p>');
+      }
+    }
+    return out.join('');
+  }
+  // 同主題的題目共用一份講義；講義依「#### 小標」切成分頁，一次只顯示一段
+  const topicCount = {};
+  OFF.forEach(q => (q.t || []).forEach(t => { topicCount[t] = (topicCount[t] || 0) + 1; }));
+  let secPref = null;  // 記住上次看的段落標題，下一題有同名段落就直接打開
+  function sections(body) {
+    const out = [];
+    let cur = null;
+    String(body).split('\n').forEach(ln => {
+      const m = ln.match(/^#{2,4} (.*)$/);
+      if (m) { cur = { title: m[1].trim(), lines: [] }; out.push(cur); }
+      else { if (!cur) { cur = { title: '概要', lines: [] }; out.push(cur); } cur.lines.push(ln); }
+    });
+    return out.filter(x => x.lines.join('').trim());
+  }
+  function lectureHtml(q) {
+    return (q.t || []).filter(t => TOPICS[t]).map((t, ti) => {
+      const secs = sections(TOPICS[t].body);
+      const on = ti ? -1 : Math.max(0, secs.findIndex(x => x.title === secPref));
+      return '<div class="lec-topic"><div class="lec-head"><span class="lbl">' + (ti ? '延伸講義' : '主題講義') + '</span><b>' + esc(TOPICS[t].name) + '</b><span class="muted mono">' + t + '・' + topicCount[t] + ' 題共用</span></div>' +
+        '<div class="sec-tabs" role="tablist">' + secs.map((x, k) => '<button role="tab" data-sec="' + t + ':' + k + '" aria-selected="' + (k === on) + '">' + esc(x.title) + '</button>').join('') + '</div>' +
+        secs.map((x, k) => '<div class="md sec" data-secbody="' + t + ':' + k + '"' + (k === on ? '' : ' hidden') + '>' + md(x.lines.join('\n')) + '</div>').join('') + '</div>';
+    }).join('');
+  }
+  document.addEventListener('click', e => {
+    const b = e.target && e.target.closest && e.target.closest('[data-sec]');
+    if (!b) return;
+    const box = b.closest('.lec-topic'), open = b.getAttribute('aria-selected') !== 'true';
+    box.querySelectorAll('[data-sec]').forEach(x => x.setAttribute('aria-selected', String(open && x === b)));
+    box.querySelectorAll('[data-secbody]').forEach(x => { x.hidden = !(open && x.dataset.secbody === b.dataset.sec); });
+    if (open) secPref = b.textContent;
+  });
+  // 解析每行是「(X) 選項：說明」（第一行前面多「答案」），拆成逐選項
+  function optNotes(q) {
+    const notes = {};
+    let last = null;
+    String(q.e || '').split('\n').forEach(ln => {
+      const m = ln.match(/^(?:答案\s*)?\(([A-D])\)\s*(.*)$/);
+      if (m) { last = m[1]; notes[last] = m[2]; }
+      else if (last && ln.trim()) notes[last] += '\n' + ln;
+    });
+    return notes;
+  }
+  // picked：undefined＝只看解析（錯題本、疑義題），null＝未作答，0–3＝作答的選項
+  function explainPane(q, picked) {
+    const notes = optNotes(q);
+    const head = picked === undefined ? '官方答案 ' + L[q.a]
+      : picked === q.a ? '答對了・官方答案 ' + L[q.a]
+      : (picked == null ? '未作答' : '答錯了，你選 ' + L[picked]) + '・官方答案 ' + L[q.a];
+    const rows = [q.a].concat([0, 1, 2, 3].filter(k => k !== q.a)).filter(k => notes[L[k]] != null).map(k => {
+      const n = notes[L[k]], c = n.indexOf('：'), lbl = c > 0 && c <= 60 ? n.slice(0, c) : '';
+      return '<div class="note' + (k === q.a ? ' right' : k === picked ? ' wrong' : '') + '"><span class="bubble">' + L[k] + '</span><div>' + (lbl ? '<span class="nl">' + esc(lbl) + '</span>：' + esc(n.slice(c + 1)) : esc(n)) + '</div></div>';
+    }).join('');
+    return '<div class="verdict' + (picked === undefined ? '' : picked === q.a ? ' ok' : ' bad') + '">' + head + '</div>' +
+      (rows ? '<div class="notes">' + rows + '</div>' : (q.e ? '<p class="e">' + esc(q.e) + '</p>' : '<p class="muted">逐選項解析製作中，答案已依官方公告。</p>')) +
+      (q.doubt ? '<div class="doubt">整理者註記：' + esc(q.doubt) + '</div>' : '') + lectureHtml(q);
+  }
+  const waitPane = () => '<div class="wait"><b>選完答案，這裡顯示解析</b><p>四個選項逐一說明對錯，下方附主題講義（分段切換）</p><p class="mono">快捷鍵　1–4／A–D 作答　Enter 下一題</p></div>';
+  const splitHtml = (left, right, cls) => '<div class="split' + (cls ? ' ' + cls : '') + '"><div class="pane left">' + left + '</div><div class="pane right">' + right + '</div></div>';
+  function questionCard(q, idx, total, picked, reveal, inExam) {
+    const opts = q.o.map((t, k) => {
+      let cls = 'opt';
+      if (reveal) { if (k === q.a) cls += ' right'; else if (k === picked) cls += ' wrong'; }
+      else if (k === picked) cls += ' picked';
+      return '<button class="' + cls + '" data-opt="' + k + '"' + (reveal && !inExam ? ' disabled' : '') + '><span class="bubble">' + L[k] + '</span>' + optText(t) + '</button>';
+    }).join('');
+    return '<div class="qcard">' +
+      '<div class="qmeta"><span><span class="mono">' + q.ch + '</span>　' + esc(chName(q.ch)) + '</span><span>' + srcTag(q) + '　<span class="mono">' + (idx + 1) + ' / ' + total + '</span></span></div>' +
+      ctxHtml(q) + bodyHtml(q) +
+      '<div class="opts">' + opts + '</div>' +
+    '</div>';
+  }
+  // 逐題翻閱（考後回顧、錯題本、疑義題）：上方題號列，下方左題右解
+  const browsePos = {};
+  function browserHtml(key, ids, opt) {
+    opt = opt || {};
+    if (browsePos[key] == null || browsePos[key] >= ids.length) browsePos[key] = opt.start || 0;
+    const i = browsePos[key], q = BYID[ids[i]];
+    const picked = opt.mine ? (opt.mine[q.id] ?? null) : undefined;
+    const strip = ids.map((id, k) => '<button class="cell' + (opt.cls ? ' ' + opt.cls(id) : '') + (k === i ? ' cur' : '') + '" data-browse="' + key + '" data-k="' + k + '" title="' + id + '">' + (k + 1) + '</button>').join('');
+    return '<div class="browse-bar"><div class="strip">' + strip + '</div><div class="actions"><button class="btn small" data-bstep="' + key + '" data-d="-1"' + (i ? '' : ' disabled') + '>← 上一題</button><span class="mono muted" style="font-size:13px">' + (i + 1) + ' / ' + ids.length + '</span><button class="btn small" data-bstep="' + key + '" data-d="1"' + (i + 1 < ids.length ? '' : ' disabled') + '>下一題 →</button></div></div>' +
+      splitHtml(questionCard(q, i, ids.length, picked, true, false), explainPane(q, picked), opt.fixed ? 'fixed' : '');
+  }
+  function bindBrowser(el, key, n) {
+    const go = k => { browsePos[key] = Math.max(0, Math.min(n - 1, k)); render(); };
+    el.querySelectorAll('[data-browse="' + key + '"]').forEach(b => b.addEventListener('click', () => go(+b.dataset.k)));
+    el.querySelectorAll('[data-bstep="' + key + '"]').forEach(b => b.addEventListener('click', () => go(browsePos[key] + +b.dataset.d)));
+    keyAct = { next: () => go(browsePos[key] + 1), prev: () => go(browsePos[key] - 1) };
+  }
+
+  // ───── 章節練習 / 錯題本（共用逐題引擎） ─────
+  const practiceCfg = { ch: 'ALL21', mode: 'all' };
+  let session = null;
+
+  function poolFor(cfg) {
+    let qs = ALL.filter(q => cfg.ch.startsWith('ALL') ? subjOf(q) === 'L' + cfg.ch.slice(3) : q.ch === cfg.ch);
+    if (cfg.mode === 'new') qs = qs.filter(q => !state.q[q.id]);
+    if (cfg.mode === 'wrong') qs = qs.filter(q => state.q[q.id] && state.q[q.id].w > 0);
+    return qs;
+  }
+  function startPractice() {
+    const qs = poolFor(practiceCfg);
+    const name = practiceCfg.ch.startsWith('ALL') ? 'L' + practiceCfg.ch.slice(3) + ' 全部章節' : practiceCfg.ch + ' ' + chName(practiceCfg.ch);
+    session = { kind: 'practice', title: name, ids: shuffle(qs.map(q => q.id)), i: 0, picked: {}, right: 0 };
+    if (view !== 'practice') show('practice'); else { render(); window.scrollTo(0, 0); }
+  }
+  function startReview(ids, title) {
+    session = { kind: 'review', title, ids: shuffle(ids), i: 0, picked: {}, right: 0 };
+    render();
+    window.scrollTo(0, 0);
+  }
+
+  function renderSessionInto(el, onExit) {
+    const s = session;
+    if (s.i >= s.ids.length) {
+      const n = s.ids.length;
+      el.innerHTML = '<div class="panel"><div class="eyebrow">' + esc(s.title) + '</div><h2 style="margin-top:4px">這一輪做完了</h2>' +
+        '<div class="result-head" style="margin-top:12px"><div class="score">' + pct(s.right, n) + '<small>%</small></div><div class="muted">答對 ' + s.right + ' / ' + n + ' 題' + (s.kind === 'review' ? '<br>同一題在錯題本中累積答對 2 次後會自動移出。' : '') + '</div></div>' +
+        '<div class="actions" style="margin-top:16px"><button class="btn primary" id="again">再練一輪</button><button class="btn" id="exit">' + (s.kind === 'review' ? '回錯題本' : '換章節') + '</button></div></div>';
+      $('again').onclick = () => { session = Object.assign({}, s, { ids: shuffle(s.ids), i: 0, picked: {}, right: 0 }); render(); };
+      $('exit').onclick = () => { session = null; onExit(); };
+      return;
+    }
+    const q = BYID[s.ids[s.i]];
+    const picked = s.picked[q.id];
+    const reveal = picked != null;
+    el.innerHTML = '<div class="toolbar"><span class="eyebrow">' + (s.kind === 'review' ? '錯題重做' : '章節練習') + '</span><strong>' + esc(s.title) + '</strong><span class="mono muted" style="font-size:13px">第 ' + (s.i + 1) + ' / ' + s.ids.length + ' 題・本輪答對 ' + s.right + '</span><span class="spacer"></span>' +
+      '<button class="btn small" id="quit">結束</button><button class="btn primary" id="next"' + (reveal ? '' : ' disabled') + '>' + (s.i + 1 === s.ids.length ? '看結果' : '下一題 →') + '</button></div>' +
+      splitHtml(questionCard(q, s.i, s.ids.length, picked, reveal, false), reveal ? explainPane(q, picked) : waitPane());
+    fillView = true;
+    const pick = k => {
+      if (s.picked[q.id] != null) return;
+      s.picked[q.id] = k;
+      if (k === q.a) s.right++;
+      record(q.id, k === q.a);
+      save();
+      render();
+      // 手機是上下排：作答後捲到解析
+      const r = el.querySelector('.pane.right');
+      if (r && window.matchMedia && window.matchMedia('(max-width: 900px)').matches) r.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    };
+    const next = () => { s.i++; render(); window.scrollTo(0, 0); };
+    el.querySelectorAll('[data-opt]').forEach(b => b.addEventListener('click', () => pick(+b.dataset.opt)));
+    keyAct = reveal ? { next } : { pick };
+    $('next').onclick = next;
+    $('quit').onclick = () => { session = null; onExit(); };
+  }
+
+  function renderPractice() {
+    const el = $('view-practice');
+    if (session && session.kind === 'practice') { renderSessionInto(el, render); return; }
+    const opts = SCOPE.map(s => '<optgroup label="' + s.subj + ' ' + esc(s.name) + '"><option value="ALL' + s.subj.slice(1) + '">' + s.subj + ' 全部章節</option>' +
+      s.topics.map(t => t.items.map(i => { const st = stats(qsOf(q => q.ch === i.ch)); return '<option value="' + i.ch + '">' + i.ch + ' ' + esc(i.name) + '（官方 ' + st.done + '/' + st.total + '）</option>'; }).join('')).join('') + '</optgroup>').join('');
+    const count = poolFor(practiceCfg).length;
+    const seg = (key, list) => '<div class="seg" role="group">' + list.map(([k, t]) => '<button data-' + key + '="' + k + '" aria-pressed="' + (practiceCfg[key] === k) + '">' + t + '</button>').join('') + '</div>';
+    el.innerHTML = '<div class="panel"><h2>章節練習</h2><p class="muted" style="margin:4px 0 16px;font-size:14px">逐題作答，選完立即看逐選項解析和該主題的完整講義。</p>' +
+      '<div class="setup"><div class="field" style="flex:1;min-width:240px"><label for="pr-ch">章節</label><select id="pr-ch">' + opts + '</select></div>' +
+      '<div class="field"><span class="lbl">題目範圍</span>' + seg('mode', [['all', '全部'], ['new', '未作答'], ['wrong', '答錯過']]) + '</div>' +
+      '<button class="btn primary" id="pr-go"' + (count ? '' : ' disabled') + '>開始（' + count + ' 題）</button></div></div>';
+    $('pr-ch').value = practiceCfg.ch;
+    $('pr-ch').onchange = e => { practiceCfg.ch = e.target.value; render(); };
+    el.querySelectorAll('[data-mode]').forEach(b => b.addEventListener('click', () => { practiceCfg.mode = b.dataset.mode; render(); }));
+    $('pr-go').onclick = startPractice;
+  }
+
+  function renderReview() {
+    const el = $('view-review');
+    if (session && session.kind === 'review') { renderSessionInto(el, render); return; }
+    const book = ALL.filter(q => inBook(q.id));
+    if (!book.length) {
+      el.innerHTML = '<div class="panel"><h2>錯題本</h2><div class="empty">目前沒有錯題。章節練習或模擬考答錯的題目會自動收進來；之後累積答對 2 次就會移出。</div></div>';
+      return;
+    }
+    const byCh = {};
+    book.forEach(q => { (byCh[q.ch] = byCh[q.ch] || []).push(q); });
+    const groups = Object.keys(byCh).sort().map(ch =>
+      '<button class="btn small" data-rv="' + ch + '" title="重做 ' + esc(chName(ch)) + '"><span class="mono">' + ch + '</span> ' + byCh[ch].length + ' 題</button>').join('');
+    el.innerHTML = '<div class="toolbar"><h2>錯題本</h2><span class="muted" style="font-size:13px">' + book.length + ' 題・累積答對 2 次自動移出・按章重做：</span>' + groups + '<span class="spacer"></span><button class="btn primary" id="rv-all">全部重做（' + book.length + ' 題）</button></div>' +
+      browserHtml('book', book.map(q => q.id));
+    fillView = true;
+    bindBrowser(el, 'book', book.length);
+    $('rv-all').onclick = () => startReview(book.map(q => q.id), '錯題本全部');
+    el.querySelectorAll('[data-rv]').forEach(b => b.addEventListener('click', () => startReview(byCh[b.dataset.rv].map(q => q.id), b.dataset.rv + ' ' + chName(b.dataset.rv))));
+  }
+
+  // ───── 模擬考 ─────
+  let examPick = PAPERS.length ? { kind: 'paper', paper: PAPERS[PAPERS.length - 1].id } : { kind: 'mix', subj: 'L21' };
+  let exam = lsGet(LS_EXAM);
+  let confirming = false, ticker = null;
+
+  // 依章節比例分配題數，同章內優先抽做得少的題目
+  function stratified(pool, n) {
+    if (!pool.length || n <= 0) return [];
+    const byCh = {};
+    pool.forEach(q => { (byCh[q.ch] = byCh[q.ch] || []).push(q.id); });
+    const quota = Object.keys(byCh).map(ch => { const raw = n * byCh[ch].length / pool.length; return { ch, n: Math.floor(raw), rem: raw - Math.floor(raw) }; });
+    let left = Math.min(n, pool.length) - quota.reduce((a, x) => a + x.n, 0);
+    quota.slice().sort((a, b) => b.rem - a.rem).forEach(x => { if (left > 0 && x.n < byCh[x.ch].length) { x.n++; left--; } });
+    const ids = [];
+    quota.forEach(x => ids.push(...shuffle(byCh[x.ch]).sort((a, b) => tries(a) - tries(b)).slice(0, x.n)));
+    return ids;
+  }
+  function examLabel(pick) {
+    if (pick.kind === 'paper') { const p = PBYID[pick.paper]; return '官方 ' + p.label + ' ' + p.subj + ' 真卷'; }
+    return pick.subj + ' 隨機抽題';
+  }
+  function startExam() {
+    const now = Date.now();
+    let ids, subj;
+    if (examPick.kind === 'paper') {
+      const p = PBYID[examPick.paper];
+      subj = p.subj;
+      ids = QB_ALL.filter(q => q.paper === p.id).sort((a, b) => a.no - b.no).map(q => q.id);
+    } else {
+      subj = examPick.subj;
+      ids = shuffle(stratified(OFF.filter(q => subjOf(q) === subj), EXAM_N));
+    }
+    exam = { pick: Object.assign({}, examPick), subj, ids, ans: {}, flags: {}, i: 0, start: now, endAt: now + EXAM_MIN * 60000 };
+    confirming = false;
+    lsSet(LS_EXAM, exam);
+    render();
+    window.scrollTo(0, 0);
+  }
+  function submitExam() {
+    if (!exam || exam.done) return;
+    const byCh = {};
+    let right = 0;
+    exam.ids.forEach(id => {
+      const q = BYID[id], k = exam.ans[id], ok = k === q.a;
+      if (ok) right++;
+      const b = byCh[q.ch] = byCh[q.ch] || { n: 0, r: 0 };
+      b.n++; if (ok) b.r++;
+      record(id, ok);
+    });
+    const sec = Math.min(Math.round((exam.endAt - exam.start) / 1000), Math.round((Date.now() - exam.start) / 1000));
+    const score = Math.round(right / exam.ids.length * 100);
+    exam.done = true;
+    exam.result = { score, right, byCh, sec };
+    const m = { t: Date.now(), subj: exam.subj, kind: exam.pick.kind, score, right, n: exam.ids.length, sec, byCh };
+    if (exam.pick.kind === 'paper') m.paper = exam.pick.paper;
+    state.mocks.push(m);
+    save();
+    lsSet(LS_EXAM, exam);
+    confirming = false;
+    stopTicker();
+    render();
+    window.scrollTo(0, 0);
+  }
+  function stopTicker() { if (ticker) { clearInterval(ticker); ticker = null; } }
+  function fmt(ms) { const s = Math.max(0, Math.ceil(ms / 1000)); const m = Math.floor(s / 60); return String(m).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0'); }
+  function tick() {
+    if (!exam || exam.done) { stopTicker(); return; }
+    const left = exam.endAt - Date.now();
+    const t = $('timer');
+    if (t) { t.textContent = fmt(left); t.classList.toggle('low', left < 5 * 60000); }
+    if (left <= 0) submitExam();
+  }
+
+  function renderExam() {
+    const el = $('view-exam');
+    if (!exam) {
+      const same = (a, b) => a.kind === b.kind && (a.kind === 'paper' ? a.paper === b.paper : a.subj === b.subj);
+      const paperBtn = p => { const b = bestPaper(p.id); const pick = { kind: 'paper', paper: p.id };
+        return '<button class="exam-opt" data-pick=\'' + JSON.stringify(pick) + '\' aria-pressed="' + same(examPick, pick) + '"><span class="subj-code">' + p.subj + '・' + esc(subjName(p.subj)) + '</span><h4>' + p.label + '</h4><span class="sub">考試日 ' + p.date + ' · 原卷 ' + OFF.filter(q => q.paper === p.id).length + ' 題原順序' + (b != null ? ' · 最佳 ' + b + ' 分' : '') + '</span></button>'; };
+      const mixBtn = s => { const pick = { kind: 'mix', subj: s.subj };
+        return '<button class="exam-opt" data-pick=\'' + JSON.stringify(pick) + '\' aria-pressed="' + same(examPick, pick) + '"><span class="subj-code">' + s.subj + '</span><h4>' + esc(s.name) + '</h4><span class="sub">從所有真卷依章節比例抽 ' + EXAM_N + ' 題，優先抽沒做過的</span></button>'; };
+      el.innerHTML = '<div class="panel"><h2>模擬考</h2><p class="muted" style="margin:4px 0 16px;font-size:14px">一科 ' + EXAM_N + ' 題、' + EXAM_MIN + ' 分鐘，交卷後才公布答案。<b>能不能過，以官方真卷的第一次成績為準</b>；同一卷考第二次會因為記得答案而偏高。</p>' +
+        '<div class="exam-group"><h3>官方真卷</h3><div class="exam-choose">' + PAPERS.map(paperBtn).join('') + '</div></div>' +
+        '<div class="exam-group" style="margin-top:16px"><h3>隨機抽題（真卷都考過之後用）</h3><div class="exam-choose">' + SCOPE.map(mixBtn).join('') + '</div></div>' +
+        '<div class="actions" style="margin-top:16px;justify-content:space-between"><div class="rules"><span>題數 <b>' + EXAM_N + '</b></span><span>時間 <b>' + EXAM_MIN + ' 分</b></span><span>單科及格 <b>' + PASS + '</b></span><span>可標記、可跳題</span><span>' + esc(LV.rule) + '</span></div><button class="btn primary" id="ex-go">開始：' + esc(examLabel(examPick)) + '</button></div></div>';
+      el.querySelectorAll('[data-pick]').forEach(b => b.addEventListener('click', () => { examPick = JSON.parse(b.dataset.pick); render(); }));
+      $('ex-go').onclick = startExam;
+      return;
+    }
+    if (exam.done) { renderResult(el); return; }
+
+    const q = BYID[exam.ids[exam.i]];
+    const answered = Object.keys(exam.ans).length;
+    const n = exam.ids.length;
+    const cells = exam.ids.map((id, k) => '<button class="cell' + (exam.ans[id] != null ? ' done' : '') + (exam.flags[id] ? ' flag' : '') + (k === exam.i ? ' cur' : '') + '" data-jump="' + k + '" aria-label="第 ' + (k + 1) + ' 題">' + (k + 1) + '</button>').join('');
+    el.innerHTML =
+      '<div class="exam-bar"><span class="subj-code">' + esc(examLabel(exam.pick)) + '</span><span class="timer" id="timer">' + fmt(exam.endAt - Date.now()) + '</span><span class="muted mono" style="font-size:13px">已答 ' + answered + ' / ' + n + '</span><span class="spacer"></span><button class="btn primary" id="ex-submit">交卷</button></div>' +
+      (confirming ? '<div class="confirm"><p>' + (n - answered ? '還有 <b>' + (n - answered) + '</b> 題未作答，未作答以零分計。' : '全部作答完畢。') + '確定交卷嗎？</p><button class="btn primary" id="ex-yes">確定交卷</button><button class="btn" id="ex-no">繼續作答</button></div>' : '') +
+      '<div class="exam-layout"><div class="pane" style="min-width:0">' + questionCard(q, exam.i, n, exam.ans[q.id], false, true) +
+        '<div class="qnav"><button class="btn" id="ex-prev"' + (exam.i ? '' : ' disabled') + '>上一題</button><button class="btn flagbtn" id="ex-flag" aria-pressed="' + !!exam.flags[q.id] + '">' + (exam.flags[q.id] ? '取消標記' : '標記此題') + '</button><button class="btn primary" id="ex-next"' + (exam.i + 1 < n ? '' : ' disabled') + '>下一題</button></div></div>' +
+        '<aside class="sheet"><h3>答 案 卡</h3><div class="cells">' + cells + '</div><div class="legend"><span>■ 已作答</span><span style="color:var(--warn)">● 已標記</span></div>' +
+        '<button class="btn small" id="ex-quit" style="margin-top:12px;width:100%">放棄本次模擬考</button></aside></div>';
+
+    el.querySelectorAll('[data-opt]').forEach(b => b.addEventListener('click', () => {
+      const k = +b.dataset.opt;
+      if (exam.ans[q.id] === k) delete exam.ans[q.id]; else exam.ans[q.id] = k;
+      lsSet(LS_EXAM, exam); render();
+    }));
+    const go = i => { exam.i = Math.max(0, Math.min(n - 1, i)); lsSet(LS_EXAM, exam); render(); window.scrollTo(0, 0); };
+    fillView = true;
+    keyAct = { pick: k => { exam.ans[q.id] = k; lsSet(LS_EXAM, exam); render(); }, next: () => go(exam.i + 1), prev: () => go(exam.i - 1) };
+    el.querySelectorAll('[data-jump]').forEach(b => b.addEventListener('click', () => go(+b.dataset.jump)));
+    $('ex-prev').onclick = () => go(exam.i - 1);
+    $('ex-next').onclick = () => go(exam.i + 1);
+    $('ex-flag').onclick = () => { exam.flags[q.id] = !exam.flags[q.id]; lsSet(LS_EXAM, exam); render(); };
+    $('ex-submit').onclick = () => { confirming = true; render(); };
+    if (confirming) { $('ex-yes').onclick = submitExam; $('ex-no').onclick = () => { confirming = false; render(); }; }
+    $('ex-quit').onclick = () => {
+      const b = $('ex-quit');
+      if (b.dataset.armed) { exam = null; lsSet(LS_EXAM, null); stopTicker(); render(); }
+      else { b.dataset.armed = '1'; b.textContent = '再按一次確認放棄（不計分）'; }
+    };
+    if (!ticker) ticker = setInterval(tick, 1000);
+  }
+
+  function renderResult(el) {
+    const r = exam.result, pass = r.score >= PASS;
+    const chips = Object.keys(r.byCh).sort().map(ch => {
+      const b = r.byCh[ch], p = pct(b.r, b.n);
+      return '<span class="chip ' + (p >= PASS ? 'good' : 'weak') + '" title="' + esc(chName(ch)) + '">' + ch + ' <b>' + b.r + '/' + b.n + '</b></span>';
+    }).join('');
+    const isOk = id => exam.ans[id] === BYID[id].a;
+    const key = 'result-' + exam.start;
+    el.innerHTML = '<div class="toolbar"><span class="score">' + r.score + '<small> 分</small></span><span class="pill ' + (pass ? 'pass' : 'fail') + '">' + (pass ? '及格' : '未及格') + '</span>' +
+      '<span class="muted" style="font-size:13px">' + esc(examLabel(exam.pick)) + '・答對 ' + r.right + ' / ' + exam.ids.length + '・用時 ' + Math.round(r.sec / 60) + ' 分' + (pass && r.score < 80 ? '・離安全線 80 分差 ' + (80 - r.score) + ' 分' : '') + '・錯題已收進錯題本</span>' +
+      '<span class="spacer"></span><button class="btn primary" id="ex-new">換一份考</button><button class="btn" id="ex-home">回範圍與進度</button></div>' +
+      '<div class="chrow"><span class="muted" style="font-size:12px;align-self:center">各章答對</span>' + chips + '</div>' +
+      browserHtml(key, exam.ids, { mine: exam.ans, cls: id => isOk(id) ? 'ok' : 'ng', start: Math.max(0, exam.ids.findIndex(id => !isOk(id))) });
+    fillView = true;
+    bindBrowser(el, key, exam.ids.length);
+    $('ex-new').onclick = () => { exam = null; lsSet(LS_EXAM, null); render(); };
+    $('ex-home').onclick = () => { exam = null; lsSet(LS_EXAM, null); show('scope'); };
+  }
+
+  // ───── 官方資源 ─────
+  function renderResources() {
+    const el = $('view-resources');
+    const rows = PAPERS.map(p => { const b = bestPaper(p.id); const tried = state.mocks.filter(m => m.paper === p.id).length;
+      return '<tr><td>' + p.label + '</td><td class="code">' + p.subj + '</td><td class="mono">' + p.date + '</td><td class="mono">' + (b == null ? '—' : b + '（' + tried + ' 次）') + '</td><td><a href="' + encodeURI(p.pdf) + '" target="_blank" rel="noopener">原卷 PDF</a></td><td><button class="btn small" data-paper="' + p.id + '">考這一卷</button></td></tr>'; }).join('');
+    const doubts = OFF.filter(q => q.doubt);
+    el.innerHTML = '<div class="grid2">' +
+      '<div class="panel papers"><h2>官方公告試題</h2><p class="muted" style="font-size:14px;margin:4px 0 0">目前收錄 ' + PAPERS.length + ' 份' + level + '真卷，共 ' + OFF.length + ' 題。答案照官方公告，章節與解析是整理者補充。</p>' +
+        '<div class="tbl-wrap"><table><thead><tr><th>梯次</th><th>科目</th><th>考試日</th><th>最佳成績</th><th>來源</th><th></th></tr></thead><tbody>' + rows + '</tbody></table></div></div>' +
+      '<div class="panel"><h2>官方學習資料</h2><p class="muted" style="font-size:14px;margin:4px 0 0">出題主軸是學習指引。官方題目錯的章節，回頭讀指引對應的段落。</p><ul class="links">' +
+        LV.docs.concat(COMMON_DOCS).map(d => '<li><a href="' + encodeURI(d.url) + '" target="_blank" rel="noopener">' + esc(d.name) + '</a></li>').join('') + '</ul></div>' +
+      '<div class="panel"><h2>進度備份</h2><p class="muted" style="font-size:14px;margin:4px 0 0">進度存在這個瀏覽器裡（' + Object.keys(state.q).length + ' 題作答紀錄、' + state.mocks.length + ' 次模擬考）。換手機或電腦時，先在舊裝置匯出，再到新裝置匯入。匯入會和現有進度合併，不會覆蓋。</p>' +
+        '<div class="actions" style="margin-top:12px"><button class="btn" id="bk-out">匯出進度檔</button><button class="btn" id="bk-in">匯入進度檔</button><input type="file" id="bk-file" accept=".json,application/json" hidden><span class="muted" id="bk-msg" style="font-size:13px"></span></div></div></div>' +
+      (doubts.length ? '<div class="panel"><h2>解析有疑義的官方題（' + doubts.length + ' 題）</h2><p class="muted" style="font-size:14px;margin:4px 0 12px">照官方答案計分，但整理者對答案或題意有疑問，作答時留意出題者的思路。</p>' + browserHtml('doubt', doubts.map(q => q.id), { fixed: true }) + '</div>' : '');
+    if (doubts.length) bindBrowser(el, 'doubt', doubts.length);
+    el.querySelectorAll('[data-paper]').forEach(b => b.addEventListener('click', () => { examPick = { kind: 'paper', paper: b.dataset.paper }; show('exam'); }));
+    $('bk-out').onclick = () => {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([JSON.stringify(state)], { type: 'application/json' }));
+      a.download = 'ipas-progress-' + new Date().toISOString().slice(0, 10) + '.json';
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    };
+    $('bk-in').onclick = () => $('bk-file').click();
+    $('bk-file').onchange = e => {
+      const f = e.target.files && e.target.files[0];
+      if (!f) return;
+      const rd = new FileReader();
+      rd.onload = () => {
+        let d = null;
+        try { d = JSON.parse(rd.result); } catch (err) {}
+        if (!d || typeof d.q !== 'object' || !Array.isArray(d.mocks)) { $('bk-msg').textContent = '檔案格式不對，沒有匯入'; return; }
+        state = merge(state, d);
+        save();
+        render();
+        $('bk-msg').textContent = '已匯入並合併';
+      };
+      rd.readAsText(f);
+    };
+  }
+
+  // ───── boot ─────
+  function measureHeader() { document.documentElement.style.setProperty('--hdr', $('hdr').offsetHeight + 'px'); }
+  window.addEventListener('resize', measureHeader);
+  if (window.claude && window.claude.hot && window.claude.hot.snapshot) {
+    window.claude.hot.snapshot(() => ({ level, view, session, examPick, practiceCfg }));
+  }
+  function start(data) {
+    data = data || {};
+    // 等級：網址 ?level=初級／中級（或 1／2）優先，其次上次的選擇
+    const qp = new URLSearchParams(location.search).get('level');
+    setLevel(data.level || ({ '1': '初級', '2': '中級' })[qp] || (LEVELS[qp] ? qp : null) || lsGet(LS_LEVEL) || '初級');
+    if (data.session) session = data.session;
+    if (data.examPick) examPick = data.examPick;
+    if (data.practiceCfg) Object.assign(practiceCfg, data.practiceCfg);
+    if (exam && (!exam.pick || exam.ids.some(id => !BYID[id]))) { exam = null; lsSet(LS_EXAM, null); }
+    if (session && session.ids.some(id => !BYID[id])) session = null;
+    if (exam && !exam.done && exam.endAt <= Date.now()) submitExam();
+    const saved = data.view || (location.hash || '').slice(1) || lsGet(LS_VIEW);
+    measureHeader();
+    renderCountdown();
+    setSync('local');
+    show(VIEWS.includes(saved) ? saved : 'scope');
+    initCloud();
+  }
+  if (window.claude && window.claude.hot && window.claude.hot.ready) window.claude.hot.ready(start);
+  else start(window.claude && window.claude.hot && window.claude.hot.data);
+})();
+</script>
+</body>
+</html>
