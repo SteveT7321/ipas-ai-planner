@@ -178,7 +178,8 @@ details.lec > summary .muted { font-weight: 400; font-size: 12px; margin-left: 4
 
 /* Setup */
 .setup { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; }
-.field { display: grid; gap: 4px; min-width: 0; }
+.field { display: grid; grid-template-columns: minmax(0, 1fr); gap: 4px; min-width: 0; }
+.field select { width: 100%; }
 .field label, .field .lbl { font-size: 12px; color: var(--muted); }
 select { font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 7px 10px; max-width: 100%; }
 .seg { display: inline-flex; border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
@@ -331,7 +332,6 @@ tr.grp .mono { color: var(--accent); }
       </div>
     </div>
     <nav class="tabs" role="tablist" aria-label="功能">
-      <button class="tab" role="tab" id="tab-scope" data-view="scope">範圍與進度</button>
       <button class="tab" role="tab" id="tab-practice" data-view="practice">章節練習</button>
       <button class="tab" role="tab" id="tab-exam" data-view="exam">模擬考</button>
       <button class="tab" role="tab" id="tab-review" data-view="review">錯題本<span class="badge" id="review-badge">0</span></button>
@@ -341,8 +341,7 @@ tr.grp .mono { color: var(--accent); }
 </header>
 
 <main class="wrap" id="main">
-  <section class="view" id="view-scope"></section>
-  <section class="view" id="view-practice" hidden></section>
+  <section class="view" id="view-practice"></section>
   <section class="view" id="view-exam" hidden></section>
   <section class="view" id="view-review" hidden></section>
   <section class="view" id="view-resources" hidden></section>
@@ -370,7 +369,7 @@ tr.grp .mono { color: var(--accent); }
   const srcTag = q => '<span class="src off">官方 ' + q.src + ' 第 ' + q.no + ' 題</span>';
   let EXAM_N = 50, EXAM_MIN = 90, PASS = 70;
   const LS_STATE = 'ipas-l2-progress-v1', LS_EXAM = 'ipas-l2-exam-v2', LS_VIEW = 'ipas-l2-view', LS_LEVEL = 'ipas-level';
-  const VIEWS = ['scope', 'practice', 'exam', 'review', 'resources'];
+  const VIEWS = ['practice', 'exam', 'review', 'resources'];
   const L = ['A', 'B', 'C', 'D'];
   const BASE = 'https://www.ipas.org.tw/api/proxy/uploads/certification_resource/bf93f438f7be48d295c1b40a34d79f3d/';
   const COMMON_DOCS = [
@@ -487,7 +486,7 @@ tr.grp .mono { color: var(--accent); }
   function bestPaper(pid) { const ms = state.mocks.filter(m => m.paper === pid); return ms.length ? Math.max(...ms.map(m => m.score)) : null; }
 
   // ───── views ─────
-  let view = 'scope';
+  let view = 'practice';
   function show(v) {
     view = v;
     VIEWS.forEach(k => {
@@ -504,7 +503,7 @@ tr.grp .mono { color: var(--accent); }
   function render() {
     $('review-badge').textContent = ALL.filter(q => inBook(q.id)).length;
     fillView = false; keyAct = null;
-    ({ scope: renderScope, practice: renderPractice, exam: renderExam, review: renderReview, resources: renderResources })[view]();
+    ({ practice: renderPractice, exam: renderExam, review: renderReview, resources: renderResources })[view]();
     $('view-' + view).classList.toggle('fill', fillView);
     $('main').classList.toggle('tight', fillView);
   }
@@ -551,71 +550,6 @@ tr.grp .mono { color: var(--accent); }
     render();
     window.scrollTo(0, 0);
   }));
-
-  // ───── 範圍與進度 ─────
-  function renderScope() {
-    const el = $('view-scope');
-    const cards = SCOPE.map(s => {
-      const so = stats(qsOf(q => subjOf(q) === s.subj));
-      const papers = PAPERS.filter(p => p.subj === s.subj);
-      const paperLine = papers.map(p => { const b = bestPaper(p.id); return p.src + '：' + (b == null ? '未考' : '<b style="color:' + (b >= PASS ? 'var(--ok)' : 'var(--bad)') + '">' + b + '</b>'); }).join('　');
-      return '<div class="panel">' +
-        '<div class="subj-head"><div><div class="subj-code">' + s.subj + '</div><h2>' + esc(s.name) + '</h2></div><span class="role">' + s.role + '</span></div>' +
-        '<div class="stats">' +
-          '<div class="stat"><div class="k">官方題已作答</div><div class="v">' + so.done + '<small> / ' + so.total + '</small></div></div>' +
-          '<div class="stat"><div class="k">官方題首次正確率</div><div class="v">' + (so.first == null ? '—' : so.first + '<small>%</small>') + '</div></div>' +
-          '<div class="stat"><div class="k">真卷最佳</div><div class="v">' + (papers.some(p => bestPaper(p.id) != null) ? Math.max(...papers.map(p => bestPaper(p.id) ?? 0)) : '—') + '</div></div>' +
-        '</div>' +
-        '<div class="bar big" title="官方題覆蓋率"><i style="width:' + pct(so.done, so.total) + '%"></i></div>' +
-        '<div class="muted" style="font-size:13px;margin-top:10px">真卷成績　' + paperLine + '</div>' +
-        '<div class="actions" style="margin-top:12px"><button class="btn small" data-go-exam="' + s.subj + '">去考 ' + s.subj + ' 真卷</button><span class="muted" style="font-size:12px">' + esc(LV.rule) + '</span></div>' +
-      '</div>';
-    }).join('');
-
-    const chRows = Object.keys(CH).filter(ch => inLevel(CH[ch].subj)).map(ch => ({ ch, ...stats(qsOf(q => q.ch === ch)) }));
-    const weak = chRows.filter(x => x.fN >= 3).sort((a, b) => a.first - b.first).slice(0, 3).filter(x => x.first < 80);
-    const weakHtml = weak.length
-      ? weak.map(x => '<div class="weak-item"><span class="mono">' + x.ch + '</span><span class="name">' + esc(chName(x.ch)) + '</span><span class="acc weak mono">' + x.first + '%</span><button class="btn small" data-practice="' + x.ch + '">練習</button></div>').join('')
-      : '<div class="empty">' + (chRows.every(x => x.done === 0) ? '還沒有作答紀錄。建議先限時考一份最新的官方真卷，再回來看哪些章節最弱。' : '目前沒有首次正確率低於 80% 的章節（至少要有 3 題首次作答才列入）。') + '</div>';
-
-    const tables = SCOPE.map(s => {
-      const rows = s.topics.map(t => '<tr class="grp"><td colspan="5"><span class="mono">' + t.code + '</span>　' + esc(t.name) + '</td></tr>' + t.items.map(it => {
-        const all = stats(qsOf(q => q.ch === it.ch));
-        const cls = all.first == null ? '' : all.first >= 80 ? 'good' : all.first < 70 ? 'weak' : '';
-        return '<tr' + (it.note ? ' title="' + esc(it.note) + '"' : '') + '>' +
-          '<td class="code">' + it.ch + '</td>' +
-          '<td>' + esc(it.name) + '</td>' +
-          '<td class="prog"><div class="row"><span>' + all.done + ' / ' + all.total + '</span></div><div class="bar"><i style="width:' + pct(all.done, all.total) + '%"></i></div></td>' +
-          '<td class="acc ' + cls + '">' + (all.first == null ? '—' : all.first + '%') + '</td>' +
-          '<td><button class="btn small" data-practice="' + it.ch + '"' + (all.total ? '' : ' disabled') + '>練習</button></td>' +
-        '</tr>';
-      }).join('')).join('');
-      const unsorted = qsOf(q => subjOf(q) === s.subj && !CH[q.ch]).length;
-      return '<div class="panel"><div class="subj-head"><h2><span class="subj-code">' + s.subj + '</span> ' + esc(s.name) + '</h2><span class="muted" style="font-size:13px">' + s.topics.reduce((n, t) => n + t.items.length, 0) + ' 個評鑑內容</span></div>' +
-        (unsorted ? '<p class="muted" style="font-size:13px;margin:6px 0 0">另有 ' + unsorted + ' 題還沒歸到章節，可用「章節練習」的「' + s.subj + ' 全部章節」作答。</p>' : '') +
-        '<div class="tbl-wrap"><table class="compact"><thead><tr><th>代碼</th><th>評鑑內容</th><th>已作答</th><th>首答正確</th><th></th></tr></thead><tbody>' + rows + '</tbody></table></div></div>';
-    }).join('');
-
-    const hist = state.mocks.filter(m => inLevel(m.subj)).reverse().slice(0, 15);
-    const histHtml = hist.length
-      ? '<div class="tbl-wrap hist"><table><thead><tr><th>日期</th><th>考卷</th><th>分數</th><th>結果</th><th>用時</th></tr></thead><tbody>' +
-        hist.map(m => '<tr><td>' + new Date(m.t).toLocaleDateString('zh-TW') + '</td><td>' + (m.paper ? '官方 ' + m.paper.replace('_', ' ') : m.subj + ' 隨機抽題') + '</td><td>' + m.score + '</td><td><span class="pill ' + (m.score >= PASS ? 'pass' : 'fail') + '">' + (m.score >= PASS ? '及格' : '未及格') + '</span></td><td>' + Math.round(m.sec / 60) + ' 分</td></tr>').join('') +
-        '</tbody></table></div>'
-      : '';
-
-    el.innerHTML =
-      '<div class="grid3">' + cards + '<div class="panel"><h2>建議先練</h2><div class="muted" style="font-size:13px">首次正確率最低的章節</div><div class="weak-list">' + weakHtml + '</div></div></div>' +
-      '<div class="grid2 wide">' + tables + '</div>' +
-      (histHtml ? '<div class="panel"><h2>模擬考紀錄</h2>' + histHtml + '</div>' : '') +
-      '<p class="foot">範圍依據《評鑑內容範圍參考》115.06 版。首次正確率只計每題第一次作答。' + (OFF.some(q => !q.e) ? '目前有 ' + OFF.filter(q => !q.e).length + ' 題的逐選項解析還在製作中，答案已依官方公告。' : '') + '116 年考試日期尚未公告。</p>';
-
-    el.querySelectorAll('[data-practice]').forEach(b => b.addEventListener('click', () => { Object.assign(practiceCfg, { ch: b.dataset.practice, mode: 'all' }); startPractice(); }));
-    el.querySelectorAll('[data-go-exam]').forEach(b => b.addEventListener('click', () => {
-      const latest = PAPERS.filter(p => p.subj === b.dataset.goExam).slice(-1)[0];
-      examPick = latest ? { kind: 'paper', paper: latest.id } : { kind: 'mix', subj: b.dataset.goExam };
-      show('exam');
-    }));
-  }
 
   // ───── 題目卡 ─────
   const shotsHtml = files => '<div class="shots">' + files.map(f => '<img src="img/' + encodeURIComponent(f) + '" alt="原卷截圖" loading="lazy">').join('') + '</div>';
@@ -816,7 +750,7 @@ tr.grp .mono { color: var(--accent); }
     const count = poolFor(practiceCfg).length;
     const seg = (key, list) => '<div class="seg" role="group">' + list.map(([k, t]) => '<button data-' + key + '="' + k + '" aria-pressed="' + (practiceCfg[key] === k) + '">' + t + '</button>').join('') + '</div>';
     el.innerHTML = '<div class="panel"><h2>章節練習</h2><p class="muted" style="margin:4px 0 16px;font-size:14px">逐題作答，選完立即看逐選項解析和該主題的完整講義。</p>' +
-      '<div class="setup"><div class="field" style="flex:1;min-width:240px"><label for="pr-ch">章節</label><select id="pr-ch">' + opts + '</select></div>' +
+      '<div class="setup"><div class="field" style="flex:1 1 240px"><label for="pr-ch">章節</label><select id="pr-ch">' + opts + '</select></div>' +
       '<div class="field"><span class="lbl">題目範圍</span>' + seg('mode', [['all', '全部'], ['new', '未作答'], ['wrong', '答錯過']]) + '</div>' +
       '<button class="btn primary" id="pr-go"' + (count ? '' : ' disabled') + '>開始（' + count + ' 題）</button></div></div>';
     $('pr-ch').value = practiceCfg.ch;
@@ -980,13 +914,13 @@ tr.grp .mono { color: var(--accent); }
     const key = 'result-' + exam.start;
     el.innerHTML = '<div class="toolbar"><span class="score">' + r.score + '<small> 分</small></span><span class="pill ' + (pass ? 'pass' : 'fail') + '">' + (pass ? '及格' : '未及格') + '</span>' +
       '<span class="muted" style="font-size:13px">' + esc(examLabel(exam.pick)) + '・答對 ' + r.right + ' / ' + exam.ids.length + '・用時 ' + Math.round(r.sec / 60) + ' 分' + (pass && r.score < 80 ? '・離安全線 80 分差 ' + (80 - r.score) + ' 分' : '') + '・錯題已收進錯題本</span>' +
-      '<span class="spacer"></span><button class="btn primary" id="ex-new">換一份考</button><button class="btn" id="ex-home">回範圍與進度</button></div>' +
+      '<span class="spacer"></span><button class="btn primary" id="ex-new">換一份考</button><button class="btn" id="ex-home">回章節練習</button></div>' +
       '<div class="chrow"><span class="muted" style="font-size:12px;align-self:center">各章答對</span>' + chips + '</div>' +
       browserHtml(key, exam.ids, { mine: exam.ans, cls: id => isOk(id) ? 'ok' : 'ng', start: Math.max(0, exam.ids.findIndex(id => !isOk(id))) });
     fillView = true;
     bindBrowser(el, key, exam.ids.length);
     $('ex-new').onclick = () => { exam = null; lsSet(LS_EXAM, null); render(); };
-    $('ex-home').onclick = () => { exam = null; lsSet(LS_EXAM, null); show('scope'); };
+    $('ex-home').onclick = () => { exam = null; lsSet(LS_EXAM, null); show('practice'); };
   }
 
   // ───── 官方資源 ─────
@@ -1051,7 +985,7 @@ tr.grp .mono { color: var(--accent); }
     measureHeader();
     renderCountdown();
     setSync('local');
-    show(VIEWS.includes(saved) ? saved : 'scope');
+    show(VIEWS.includes(saved) ? saved : 'practice');
     initCloud();
   }
   if (window.claude && window.claude.hot && window.claude.hot.ready) window.claude.hot.ready(start);
